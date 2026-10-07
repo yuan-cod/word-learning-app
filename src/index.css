@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 25 33% 97%;
+    --foreground: 30 7% 22%;
+    --card: 0 0% 100%;
+    --card-foreground: 30 7% 22%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 30 7% 22%;
+    --primary: 27 49% 49%;
+    --primary-foreground: 25 33% 97%;
+    --secondary: 25 40% 93%;
+    --secondary-foreground: 30 7% 22%;
+    --muted: 25 40% 93%;
+    --muted-foreground: 30 3% 66%;
+    --accent: 25 40% 93%;
+    --accent-foreground: 30 7% 22%;
+    --destructive: 6 78% 55%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 28 32% 85%;
+    --input: 28 32% 85%;
+    --ring: 27 49% 49%;
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-paper text-ink font-body antialiased;
+  }
+}
+
+/* 3D flip card */
+.flip-scene {
+  perspective: 1600px;
+}
+.flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.4, 0.1, 0.2, 1);
+}
+.flip-inner.flipped {
+  transform: rotateY(180deg);
+}
+.flip-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.flip-back {
+  transform: rotateY(180deg);
+}
+
+/* decorative squiggly line, pale sand */
+.squiggle {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='6' viewBox='0 0 40 6'%3E%3Cpath d='M0 3 Q5 0 10 3 T20 3 T30 3 T40 3' fill='none' stroke='%23DEC9B8' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position: center;
+  height: 6px;
+}
+
+/* subtle paper grain */
+.paper-grain {
+  background-image: radial-gradient(#3c383508 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.rise-in {
+  animation: rise-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flip-inner { transition: none; }
+  .rise-in { animation: none; }
+}
